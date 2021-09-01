@@ -143,7 +143,9 @@ abstract class CordovaHttpBase implements Runnable {
     request.setSSLSocketFactory(this.tlsConfiguration.getTLSSocketFactory());
 
     // setup content type before applying headers, so user can override it
-    this.setContentType(request);
+    if (!request.isBodyEmpty()) {
+      this.setContentType(request);
+    }
 
     request.headers(JsonUtils.getStringMap(this.headers));
   }
